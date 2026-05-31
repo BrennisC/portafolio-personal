@@ -7,7 +7,7 @@ import {
   Briefcase,
 } from "lucide-react";
 import { motion } from "motion/react";
-
+import foto from "../../assets/img/brennis-castro.webp";
 export default function BioCard() {
   return (
     <div
@@ -23,7 +23,7 @@ export default function BioCard() {
         <div className="flex items-center gap-4">
           <div className="relative">
             <img
-              src="/assets/img/brennis-castro.webp"
+              src={foto}
               alt="Brennis Castro"
               className="w-30 h-30 rounded-2xl"
             />
