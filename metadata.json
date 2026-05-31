@@ -1,0 +1,6 @@
+{
+  "name": "Brennis Castro Portfolio",
+  "description": "An interactive, premium Bento Grid portfolio for Brennis Castro, featuring projects, skills, career timeline, and a server-side Gemini powered AI Digital Twin recruiter chat.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
