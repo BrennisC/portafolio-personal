@@ -26,7 +26,7 @@ export default function SkillsCard() {
       : SKILLS_DATA.filter((s) => s.category === activeTab);
 
   return (
-    <div className="h-full flex flex-col justify-between bg-zinc-900/80 border border-zinc-800 p-5 rounded-3xl relative overflow-hidden group">
+    <div className="h-full flex flex-col justify-between bg-zinc-900/80 border border-zinc-800 p-10 rounded-3xl relative overflow-hidden group">
       {/* Background decoration */}
       <div className="absolute top-0 right-0 w-36 h-36 bg-cyan-500/5 rounded-full blur-2xl group-hover:bg-cyan-500/10 transition-colors duration-300 pointer-events-none" />
 
@@ -42,14 +42,14 @@ export default function SkillsCard() {
           </div>
 
           {/* Tab buttons */}
-          <div className="flex bg-zinc-950 border border-zinc-900 rounded-lg p-0.5 text-[10px] font-mono select-none gap-0.5">
+          <div className="flex bg-zinc-950 border border-zinc-900 rounded-lg p-1 text-[10px] font-mono select-none gap-1.5">
             {(["all", "frontend", "backend", "tools"] as const).map((tab) => (
               <button
                 key={tab}
                 type="button"
                 onClick={() => setActiveTab(tab)}
                 className={[
-                  "px-2 py-1 rounded capitalize transition-colors duration-150 cursor-pointer",
+                  "px-3 py-2 rounded capitalize transition-colors duration-150 cursor-pointer",
                   activeTab === tab
                     ? "bg-emerald-500 text-black font-semibold"
                     : "text-zinc-500 hover:text-zinc-300",

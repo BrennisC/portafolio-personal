@@ -9,7 +9,9 @@ export default function ContactCard() {
   const [text, setText] = useState("");
   const [messages, setMessages] = useState<Message[]>([]);
   const [showInbox, setShowInbox] = useState(false);
-  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
+  const [status, setStatus] = useState<
+    "idle" | "sending" | "success" | "error"
+  >("idle");
 
   // Load local messages left by users
   useEffect(() => {
@@ -36,14 +38,17 @@ export default function ContactCard() {
       text,
       timestamp: new Date().toLocaleDateString("es-PE", {
         hour: "2-digit",
-        minute: "2-digit"
-      })
+        minute: "2-digit",
+      }),
     };
 
     setTimeout(() => {
       const updated = [newMessage, ...messages];
       setMessages(updated);
-      localStorage.setItem("brennis_portfolio_messages", JSON.stringify(updated));
+      localStorage.setItem(
+        "brennis_portfolio_messages",
+        JSON.stringify(updated),
+      );
 
       setName("");
       setEmail("");
@@ -56,13 +61,16 @@ export default function ContactCard() {
 
   const deleteMessage = (id: string, e: MouseEvent) => {
     e.stopPropagation();
-    const updated = messages.filter(m => m.id !== id);
+    const updated = messages.filter((m) => m.id !== id);
     setMessages(updated);
     localStorage.setItem("brennis_portfolio_messages", JSON.stringify(updated));
   };
 
   return (
-    <div id="contact-card" className="h-full flex flex-col justify-between bg-zinc-900/80 border border-zinc-800 p-5 rounded-3xl relative overflow-hidden group">
+    <div
+      id="contact-card"
+      className="h-full flex flex-col justify-between bg-zinc-900/80 border border-zinc-800 p-10 rounded-3xl relative overflow-hidden group"
+    >
       {/* Background glow shadow */}
       <div className="absolute bottom-0 left-4 w-28 h-28 bg-emerald-500/5 rounded-full filter blur-xl group-hover:bg-emerald-500/10 transition pointer-events-none" />
 
@@ -73,7 +81,9 @@ export default function ContactCard() {
             <div className="p-1.5 rounded-lg bg-emerald-500/10 text-emerald-400">
               <Mail className="w-4 h-4" />
             </div>
-            <h3 className="font-sans font-semibold text-white text-sm">Buzón de Mensajes</h3>
+            <h3 className="font-sans font-semibold text-white text-sm">
+              Buzón de Mensajes
+            </h3>
           </div>
 
           <button
@@ -92,17 +102,26 @@ export default function ContactCard() {
           <div className="space-y-2 max-h-[160px] overflow-y-auto pr-1 scrollbar-thin scrollbar-thumb-zinc-800">
             {messages.length === 0 ? (
               <div className="text-center py-6">
-                <p className="text-[10px] font-mono text-zinc-600">No hay mensajes guardados en este navegador.</p>
+                <p className="text-[10px] font-mono text-zinc-600">
+                  No hay mensajes guardados en este navegador.
+                </p>
               </div>
             ) : (
-              messages.map(m => (
-                <div key={m.id} className="bg-zinc-950/80 p-2.5 rounded-xl border border-zinc-850 relative group/item">
+              messages.map((m) => (
+                <div
+                  key={m.id}
+                  className="bg-zinc-950/80 p-2.5 rounded-xl border border-zinc-850 relative group/item"
+                >
                   <div className="flex items-center justify-between text-[9px] font-mono mb-1 text-zinc-400">
-                    <span className="font-bold text-white truncate max-w-[120px]">{m.name}</span>
+                    <span className="font-bold text-white truncate max-w-[120px]">
+                      {m.name}
+                    </span>
                     <span className="text-zinc-600">{m.timestamp}</span>
                   </div>
-                  <p className="text-[10px] text-zinc-400 font-sans leading-relaxed break-words pr-4">{m.text}</p>
-                  
+                  <p className="text-[10px] text-zinc-400 font-sans leading-relaxed break-words pr-4">
+                    {m.text}
+                  </p>
+
                   <button
                     id={`delete-${m.id}`}
                     onClick={(e) => deleteMessage(m.id, e)}
@@ -177,7 +196,8 @@ export default function ContactCard() {
 
       <div className="text-[9px] font-sans text-zinc-500 mt-2 flex items-center justify-between">
         <span className="flex items-center gap-1">
-          Hecho con <Heart className="w-3 h-3 text-rose-500 fill-rose-500" /> por Brennis Castro
+          Hecho con <Heart className="w-3 h-3 text-rose-500 fill-rose-500" />{" "}
+          por Brennis Castro
         </span>
         <span>Santiago / Lima 2026</span>
       </div>

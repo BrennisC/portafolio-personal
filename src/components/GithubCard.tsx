@@ -1,9 +1,18 @@
 import { useState } from "react";
-import { Github, Star, GitPullRequest, GitCommit, ExternalLink } from "lucide-react";
+import {
+  Github,
+  Star,
+  GitPullRequest,
+  GitCommit,
+  ExternalLink,
+} from "lucide-react";
 import { motion } from "motion/react";
 
 export default function GithubCard() {
-  const [hoveredCell, setHoveredCell] = useState<{ day: number; count: number } | null>(null);
+  const [hoveredCell, setHoveredCell] = useState<{
+    day: number;
+    count: number;
+  } | null>(null);
 
   // Generate systematic commit values over 7 rows (days) and 24 columns (weeks) representing half a year
   const rows = 7;
@@ -27,7 +36,10 @@ export default function GithubCard() {
   };
 
   return (
-    <div id="github-card" className="h-full flex flex-col justify-between bg-zinc-900/80 border border-zinc-800 p-5 rounded-3xl relative overflow-hidden group">
+    <div
+      id="github-card"
+      className="h-full flex flex-col justify-between bg-zinc-900/80 border border-zinc-800 p-10 rounded-3xl relative overflow-hidden group"
+    >
       {/* Background decoration blur */}
       <div className="absolute top-0 left-0 w-32 h-32 bg-emerald-500/5 rounded-full filter blur-xl group-hover:bg-emerald-500/10 pointer-events-none transition duration-700" />
 
@@ -38,11 +50,13 @@ export default function GithubCard() {
               <Github className="w-4 h-4" />
             </div>
             <div>
-              <h3 className="font-sans font-semibold text-white text-sm">Actividad en GitHub</h3>
+              <h3 className="font-sans font-semibold text-white text-sm">
+                Actividad en GitHub
+              </h3>
               <p className="text-[10px] text-zinc-500 font-sans">@BrennisC</p>
             </div>
           </div>
-          
+
           <a
             id="github-card-external-link"
             href="https://github.com/BrennisC"
@@ -61,19 +75,25 @@ export default function GithubCard() {
             <span className="text-zinc-500 text-[9px] font-mono uppercase flex items-center gap-1">
               <GitCommit className="w-3 h-3 text-emerald-400" /> Commits
             </span>
-            <span className="text-white text-sm font-sans font-bold mt-0.5">1,280+</span>
+            <span className="text-white text-sm font-sans font-bold mt-0.5">
+              1,280+
+            </span>
           </div>
           <div className="flex flex-col items-center border-x border-zinc-900">
             <span className="text-zinc-500 text-[9px] font-mono uppercase flex items-center gap-1">
               <Star className="w-3 h-3 text-yellow-400" /> Stars
             </span>
-            <span className="text-white text-sm font-sans font-bold mt-0.5">142</span>
+            <span className="text-white text-sm font-sans font-bold mt-0.5">
+              142
+            </span>
           </div>
           <div className="flex flex-col items-center">
             <span className="text-zinc-500 text-[9px] font-mono uppercase flex items-center gap-1">
               <GitPullRequest className="w-3 h-3 text-cyan-400" /> PRs
             </span>
-            <span className="text-white text-sm font-sans font-bold mt-0.5">64</span>
+            <span className="text-white text-sm font-sans font-bold mt-0.5">
+              64
+            </span>
           </div>
         </div>
 
@@ -83,7 +103,10 @@ export default function GithubCard() {
             {/* Week headers spacing */}
             <div className="flex flex-col justify-between text-[8px] font-mono text-zinc-600 pr-1 select-none">
               {daysOfWeek.map((day, idx) => (
-                <span key={idx} className="h-2 leading-none flex items-center justify-end w-4">
+                <span
+                  key={idx}
+                  className="h-2 leading-none flex items-center justify-end w-4"
+                >
                   {day}
                 </span>
               ))}
@@ -97,10 +120,14 @@ export default function GithubCard() {
                     return (
                       <div
                         key={rIdx}
-                        onMouseEnter={() => setHoveredCell({ day: cIdx * 7 + rIdx, count })}
+                        onMouseEnter={() =>
+                          setHoveredCell({ day: cIdx * 7 + rIdx, count })
+                        }
                         onMouseLeave={() => setHoveredCell(null)}
                         className={`w-2 h-2 rounded-[1.5px] transition-all duration-100 ${getCommitLevel(count)} ${
-                          hoveredCell && hoveredCell.day === cIdx * 7 + rIdx ? "scale-125 shadow shadow-emerald-400/50" : ""
+                          hoveredCell && hoveredCell.day === cIdx * 7 + rIdx
+                            ? "scale-125 shadow shadow-emerald-400/50"
+                            : ""
                         }`}
                       />
                     );
@@ -114,7 +141,10 @@ export default function GithubCard() {
           <div className="text-center mt-2.5 h-3">
             {hoveredCell ? (
               <p className="text-[9px] font-mono text-emerald-400">
-                Día {hoveredCell.day + 1}: {hoveredCell.count === 0 ? "Sin commits" : `${hoveredCell.count} contribuciones`}
+                Día {hoveredCell.day + 1}:{" "}
+                {hoveredCell.count === 0
+                  ? "Sin commits"
+                  : `${hoveredCell.count} contribuciones`}
               </p>
             ) : (
               <p className="text-[9px] font-mono text-zinc-500">

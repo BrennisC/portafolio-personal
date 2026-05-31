@@ -53,7 +53,7 @@ export default function ProjectsCard() {
   return (
     <div
       id="projects-card"
-      className="h-full flex flex-col justify-between bg-zinc-900/80 border border-zinc-800 p-5 rounded-3xl relative overflow-hidden group"
+      className="h-full flex flex-col justify-between bg-zinc-900/80 border border-zinc-800 p-10 rounded-3xl relative overflow-hidden group"
     >
       {/* Background decoration */}
       <div className="absolute bottom-4 right-4 w-28 h-28 bg-emerald-500/5 rounded-full filter blur-xl group-hover:bg-emerald-500/10 transition pointer-events-none" />
@@ -71,14 +71,14 @@ export default function ProjectsCard() {
           </div>
 
           {/* Quick Filters */}
-          <div className="flex bg-zinc-950 border border-zinc-900 rounded-lg p-0.5 text-[9px] font-mono select-none">
+          <div className="flex bg-zinc-950 border border-zinc-900 rounded-lg p-1.5 text-[9px] font-mono select-none">
             {(["all", "frontend", "backend", "fullstack"] as const).map(
               (cat) => (
                 <button
                   key={cat}
                   id={`filter-${cat}`}
                   onClick={() => setActiveCategory(cat)}
-                  className={`px-2 py-1 rounded-md capitalize transition-all duration-200 cursor-pointer ${
+                  className={`px-3 py-2 rounded-md capitalize transition-all duration-200 cursor-pointer ${
                     activeCategory === cat
                       ? "bg-emerald-500 text-black font-semibold"
                       : "text-zinc-500 hover:text-zinc-300"

@@ -12,7 +12,7 @@ export default function BioCard() {
   return (
     <div
       id="bio-card"
-      className="h-full flex flex-col justify-between bg-zinc-900/80 border border-zinc-800 p-6 rounded-3xl relative overflow-hidden group"
+      className="h-full flex flex-col justify-between bg-zinc-900/80 border border-zinc-800 p-10 rounded-3xl relative overflow-hidden group"
     >
       {/* Background glow effects */}
       <div className="absolute top-0 right-0 w-44 h-44 bg-emerald-500/5 rounded-full filter blur-2xl group-hover:bg-emerald-500/10 transition-all duration-700 -mr-10 -mt-10" />
@@ -23,9 +23,9 @@ export default function BioCard() {
         <div className="flex items-center gap-4">
           <div className="relative">
             <img
-              src="/assets/img/brennis-castro.jpg"
+              src="/assets/img/brennis-castro.webp"
               alt="Brennis Castro"
-              className="w-16 h-16 rounded-2xl"
+              className="w-30 h-30 rounded-2xl"
             />
           </div>
 

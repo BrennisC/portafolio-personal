@@ -50,7 +50,7 @@ export default function App() {
         </header>
 
         {/* Bento Grid layout construct */}
-        <main className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <main className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Block A: Biography / Presentation */}
           <div className="md:col-span-2">
             <BioCard />
