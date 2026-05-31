@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { Star, Code, Server, Wrench, Shield } from "lucide-react";
-import { motion } from "motion/react";
+import { Code, Server, Wrench } from "lucide-react";
 
 const SKILLS_DATA = [
   { name: "React.js / Next.js", level: 5, category: "frontend" },
@@ -16,10 +15,10 @@ const SKILLS_DATA = [
   { name: "Figma (UI Dev)", level: 4, category: "tools" },
 ];
 
+type Tab = "all" | "frontend" | "backend" | "tools";
+
 export default function SkillsCard() {
-  const [activeTab, setActiveTab] = useState<
-    "all" | "frontend" | "backend" | "tools"
-  >("all");
+  const [activeTab, setActiveTab] = useState<Tab>("all");
 
   const filteredSkills =
     activeTab === "all"
@@ -27,12 +26,9 @@ export default function SkillsCard() {
       : SKILLS_DATA.filter((s) => s.category === activeTab);
 
   return (
-    <div
-      id="skills-card"
-      className="h-full flex flex-col justify-between bg-zinc-900/80 border border-zinc-800 p-5 rounded-3xl relative overflow-hidden group"
-    >
+    <div className="h-full flex flex-col justify-between bg-zinc-900/80 border border-zinc-800 p-5 rounded-3xl relative overflow-hidden group">
       {/* Background decoration */}
-      <div className="absolute top-0 right-0 w-36 h-36 bg-cyan-500/5 rounded-full filter blur-2xl group-hover:bg-cyan-500/10 transitionpointer-events-none" />
+      <div className="absolute top-0 right-0 w-36 h-36 bg-cyan-500/5 rounded-full blur-2xl group-hover:bg-cyan-500/10 transition-colors duration-300 pointer-events-none" />
 
       <div>
         <div className="flex items-center justify-between mb-4">
@@ -46,25 +42,26 @@ export default function SkillsCard() {
           </div>
 
           {/* Tab buttons */}
-          <div className="flex bg-zinc-950 border border-zinc-900 rounded-lg p-0.5 text-[8px] font-mono select-none">
+          <div className="flex bg-zinc-950 border border-zinc-900 rounded-lg p-0.5 text-[10px] font-mono select-none gap-0.5">
             {(["all", "frontend", "backend", "tools"] as const).map((tab) => (
               <button
                 key={tab}
-                id={`skills-tab-${tab}`}
+                type="button"
                 onClick={() => setActiveTab(tab)}
-                className={`px-1.5 py-1 rounded capitalize cursor-pointer ${
+                className={[
+                  "px-2 py-1 rounded capitalize transition-colors duration-150 cursor-pointer",
                   activeTab === tab
                     ? "bg-emerald-500 text-black font-semibold"
-                    : "text-zinc-500 hover:text-zinc-300"
-                }`}
+                    : "text-zinc-500 hover:text-zinc-300",
+                ].join(" ")}
               >
-                {tab === "tools" ? "Tools" : tab}
+                {tab}
               </button>
             ))}
           </div>
         </div>
 
-        {/* Dynamic skills layout */}
+        {/* Skills list */}
         <div className="space-y-2.5 max-h-[190px] overflow-y-auto pr-1 scrollbar-thin scrollbar-thumb-zinc-800">
           {filteredSkills.map((skill, idx) => (
             <div key={idx} className="flex flex-col">
@@ -74,16 +71,17 @@ export default function SkillsCard() {
                   {Array.from({ length: 5 }).map((_, i) => (
                     <span
                       key={i}
-                      className={`w-1.5 h-1.5 rounded-full ${
-                        i < skill.level ? "bg-emerald-400" : "bg-zinc-800"
-                      }`}
+                      className={[
+                        "w-1.5 h-1.5 rounded-full",
+                        i < skill.level ? "bg-emerald-400" : "bg-zinc-800",
+                      ].join(" ")}
                     />
                   ))}
                 </div>
               </div>
               <div className="w-full h-1 bg-zinc-950 rounded-full overflow-hidden">
                 <div
-                  className="h-full bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-full"
+                  className="h-full bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-full transition-all duration-300"
                   style={{ width: `${(skill.level / 5) * 100}%` }}
                 />
               </div>
