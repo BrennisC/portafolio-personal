@@ -1,7 +1,35 @@
 @import "tailwindcss";
 
-@root {
-    --primary-color: #beb7a4;
-    --secondary-color: #000000;
-    --accent-color: #ff7f11;
+:root {
+  --color-cream-50: #fffdf8;
+  --color-blue-700: #244a8f;
+  --color-blue-900: #0f254d;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: var(--color-cream-50);
+  color: var(--color-blue-900);
+  font-family: "Share Tech", ui-sans-serif, system-ui, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+::selection {
+  background: var(--color-blue-700);
+  color: white;
 }

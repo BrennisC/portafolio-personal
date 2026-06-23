@@ -1,102 +1,46 @@
-import { useState } from "react";
-import { Code, Server, Wrench } from "lucide-react";
+import { Code } from "lucide-react";
+import { SKILLS_DATA } from "../utis/data.ts";
 
-const SKILLS_DATA = [
-  { name: "React.js / Next.js", level: 5, category: "frontend" },
-  { name: "TypeScript / ES6", level: 5, category: "frontend" },
-  { name: "Tailwind CSS", level: 5, category: "frontend" },
-  { name: "Node.js / Express", level: 5, category: "backend" },
-  { name: "PostgreSQL", level: 4, category: "backend" },
-  { name: "REST / GraphQL", level: 4, category: "backend" },
-  { name: "Java / Spring-Boot", level: 3, category: "backend" },
-  { name: "Git & GitHub", level: 5, category: "tools" },
-  { name: "Docker", level: 4, category: "tools" },
-  { name: "Prisma ORM", level: 5, category: "backend" },
-  { name: "Figma (UI Dev)", level: 4, category: "tools" },
-];
-
-type Tab = "all" | "frontend" | "backend" | "tools";
+const categories = ["frontend", "backend", "tools"] as const;
 
 export default function SkillsCard() {
-  const [activeTab, setActiveTab] = useState<Tab>("all");
-
-  const filteredSkills =
-    activeTab === "all"
-      ? SKILLS_DATA
-      : SKILLS_DATA.filter((s) => s.category === activeTab);
-
   return (
-    <div className="h-full flex flex-col justify-between bg-zinc-900/80 border border-zinc-800 p-10 rounded-3xl relative overflow-hidden group">
-      {/* Background decoration */}
-      <div className="absolute top-0 right-0 w-36 h-36 bg-cyan-500/5 rounded-full blur-2xl group-hover:bg-cyan-500/10 transition-colors duration-300 pointer-events-none" />
-
-      <div>
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-2">
-            <div className="p-1.5 rounded-lg bg-emerald-500/10 text-emerald-400">
-              <Code className="w-4 h-4" />
-            </div>
-            <h3 className="font-sans font-semibold text-white text-sm">
-              Habilidades & Stack
-            </h3>
-          </div>
-
-          {/* Tab buttons */}
-          <div className="flex bg-zinc-950 border border-zinc-900 rounded-lg p-1 text-[10px] font-mono select-none gap-1.5">
-            {(["all", "frontend", "backend", "tools"] as const).map((tab) => (
-              <button
-                key={tab}
-                type="button"
-                onClick={() => setActiveTab(tab)}
-                className={[
-                  "px-3 py-2 rounded capitalize transition-colors duration-150 cursor-pointer",
-                  activeTab === tab
-                    ? "bg-emerald-500 text-black font-semibold"
-                    : "text-zinc-500 hover:text-zinc-300",
-                ].join(" ")}
-              >
-                {tab}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Skills list */}
-        <div className="space-y-2.5 max-h-[190px] overflow-y-auto pr-1 scrollbar-thin scrollbar-thumb-zinc-800">
-          {filteredSkills.map((skill, idx) => (
-            <div key={idx} className="flex flex-col">
-              <div className="flex items-center justify-between text-xs font-sans mb-1">
-                <span className="text-zinc-300 font-medium">{skill.name}</span>
-                <div className="flex gap-0.5" title={`Level: ${skill.level}/5`}>
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <span
-                      key={i}
-                      className={[
-                        "w-1.5 h-1.5 rounded-full",
-                        i < skill.level ? "bg-emerald-400" : "bg-zinc-800",
-                      ].join(" ")}
-                    />
-                  ))}
-                </div>
-              </div>
-              <div className="w-full h-1 bg-zinc-950 rounded-full overflow-hidden">
-                <div
-                  className="h-full bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-full transition-all duration-300"
-                  style={{ width: `${(skill.level / 5) * 100}%` }}
-                />
-              </div>
-            </div>
-          ))}
+    <div className="flex h-full flex-col rounded-[1.5rem] border border-blue-100 bg-white p-6 shadow-[0_20px_50px_rgba(15,37,77,0.08)] sm:p-7">
+      <div className="flex items-center gap-3">
+        <span className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-50 text-blue-800">
+          <Code className="h-4 w-4" />
+        </span>
+        <div>
+          <h3 className="text-xl font-semibold text-blue-950">Habilidades</h3>
+          <p className="mt-1 text-sm text-slate-500">
+            Tecnologias organizadas para una lectura mas rapida.
+          </p>
         </div>
       </div>
 
-      <div className="border-t border-zinc-800/80 pt-3 mt-4 flex items-center justify-between text-[10px] text-zinc-500 font-mono">
-        <span className="flex items-center gap-1.5">
-          <Server className="w-3.5 h-3.5 text-zinc-400" /> Backend Pro
-        </span>
-        <span className="flex items-center gap-1.5">
-          <Wrench className="w-3.5 h-3.5 text-zinc-400" /> DevOps Ready
-        </span>
+      <div className="mt-5 space-y-5">
+        {categories.map((category) => {
+          const items = SKILLS_DATA.filter((skill) => skill.category === category);
+
+          return (
+            <section key={category} className="rounded-[1.25rem] border border-blue-100 bg-[#fffdf8] p-4 sm:p-5">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-blue-700">
+                {category}
+              </p>
+
+              <div className="mt-3 flex flex-wrap gap-2.5">
+                {items.map((skill) => (
+                  <span
+                    key={skill.name}
+                    className="rounded-full border border-blue-100 bg-white px-3 py-2 text-sm text-slate-600"
+                  >
+                    {skill.name}
+                  </span>
+                ))}
+              </div>
+            </section>
+          );
+        })}
       </div>
     </div>
   );

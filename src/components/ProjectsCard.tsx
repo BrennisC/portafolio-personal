@@ -1,14 +1,13 @@
 import { useState } from "react";
+import { ExternalLink, Github } from "lucide-react";
 import { Project } from "../types";
-import { ExternalLink, Github, Folder, Eye, Code, Layers } from "lucide-react";
-import { motion } from "motion/react";
 
 const PROJECTS_DATA: Project[] = [
   {
     id: "p1",
     title: "TechFlow App",
     description:
-      "Este proyecto desarrolle una aplicacion web con la arquitectura de microfrontends utilizando React 19 y Vite.",
+      "Aplicacion web desarrollada con una arquitectura de microfrontends usando React 19 y Vite.",
     tags: ["React 19", "Vite", "Tailwind v4"],
     githubUrl: "https://github.com/BrennisC/techflow-app.git",
     featured: true,
@@ -19,8 +18,8 @@ const PROJECTS_DATA: Project[] = [
     id: "p2",
     title: "Sigea App",
     description:
-      "Aplicacion para poder gestionar las actividades que se desarrollar en la auditorio de la facultadad de ingenieria de informatica y sistemas",
-    tags: ["Java", "Spring Boot", "RestApi", "JWT Auth", "PostgreSQL"],
+      "Aplicacion para gestionar actividades del auditorio de la facultad de ingenieria de informatica y sistemas.",
+    tags: ["Java", "Spring Boot", "REST API", "JWT Auth", "PostgreSQL"],
     githubUrl: "https://github.com/BrennisC/SIGEA.git",
     featured: true,
     category: "backend",
@@ -30,7 +29,7 @@ const PROJECTS_DATA: Project[] = [
     id: "p3",
     title: "SED",
     description:
-      "Sistema de evualuacion docente, creada para poder agilizar los procesos de evaluacion docente de la UNIVERSIDAD NACIONAL AGRARIA DE LA SELVA",
+      "Sistema de evaluacion docente creado para agilizar los procesos de evaluacion en la universidad.",
     tags: ["Python", "Django", "JWT Auth", "PostgreSQL", "HTML"],
     githubUrl: "https://github.com/BrennisC/sed_backend.git",
     featured: false,
@@ -39,183 +38,102 @@ const PROJECTS_DATA: Project[] = [
   },
 ];
 
+type Category = "all" | "frontend" | "backend" | "fullstack";
+
 export default function ProjectsCard() {
-  const [activeCategory, setActiveCategory] = useState<
-    "all" | "frontend" | "backend" | "fullstack"
-  >("all");
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [activeCategory, setActiveCategory] = useState<Category>("all");
 
   const filteredProjects =
     activeCategory === "all"
       ? PROJECTS_DATA
-      : PROJECTS_DATA.filter((p) => p.category === activeCategory);
+      : PROJECTS_DATA.filter((project) => project.category === activeCategory);
 
   return (
     <div
       id="projects-card"
-      className="h-full flex flex-col justify-between bg-zinc-900/80 border border-zinc-800 p-10 rounded-3xl relative overflow-hidden group"
+      className="flex h-full flex-col rounded-[1.5rem] border border-blue-100 bg-white p-6 shadow-[0_20px_50px_rgba(15,37,77,0.08)] sm:p-7 lg:min-h-[30rem]"
     >
-      {/* Background decoration */}
-      <div className="absolute bottom-4 right-4 w-28 h-28 bg-emerald-500/5 rounded-full filter blur-xl group-hover:bg-emerald-500/10 transition pointer-events-none" />
-
-      {/* Header with Navigation Categorization */}
-      <div className="z-10">
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-2">
-            <div className="p-1.5 rounded-lg bg-emerald-500/10 text-emerald-400">
-              <Folder className="w-4 h-4" />
-            </div>
-            <h3 className="font-sans font-semibold text-white text-sm">
-              Proyectos Selectos
-            </h3>
-          </div>
-
-          {/* Quick Filters */}
-          <div className="flex bg-zinc-950 border border-zinc-900 rounded-lg p-1.5 text-[9px] font-mono select-none">
-            {(["all", "frontend", "backend", "fullstack"] as const).map(
-              (cat) => (
-                <button
-                  key={cat}
-                  id={`filter-${cat}`}
-                  onClick={() => setActiveCategory(cat)}
-                  className={`px-3 py-2 rounded-md capitalize transition-all duration-200 cursor-pointer ${
-                    activeCategory === cat
-                      ? "bg-emerald-500 text-black font-semibold"
-                      : "text-zinc-500 hover:text-zinc-300"
-                  }`}
-                >
-                  {cat}
-                </button>
-              ),
-            )}
-          </div>
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <h3 className="text-xl font-semibold text-blue-950">Proyectos</h3>
+          <p className="mt-1 text-sm text-slate-500">
+            Seleccion de trabajo con foco en resultado, stack y claridad.
+          </p>
         </div>
 
-        {/* Project Thumb List */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-[220px] overflow-y-auto pr-1 scrollbar-thin scrollbar-thumb-zinc-800">
-          {filteredProjects.map((proj) => (
-            <div
-              key={proj.id}
-              onClick={() => setSelectedProject(proj)}
-              className="group/item flex flex-col justify-between p-3 border border-zinc-800/80 hover:border-zinc-700 bg-zinc-950/40 hover:bg-zinc-950 rounded-2xl cursor-pointer transition-all duration-300"
+        <div className="flex flex-wrap gap-2 text-xs">
+          {(["all", "frontend", "backend", "fullstack"] as const).map((cat) => (
+            <button
+              key={cat}
+              type="button"
+              onClick={() => setActiveCategory(cat)}
+              className={[
+                "rounded-full px-3 py-2 capitalize transition",
+                activeCategory === cat
+                  ? "bg-blue-900 text-white"
+                  : "border border-blue-100 text-slate-600 hover:border-blue-300 hover:text-blue-800",
+              ].join(" ")}
             >
-              <div>
-                <div className="flex items-center justify-between mb-1.5">
-                  <span className="text-[10px] font-mono text-emerald-400 uppercase tracking-widest font-semibold">
-                    {proj.category}
-                  </span>
-                  {proj.metrics && (
-                    <span className="text-[9px] font-mono text-zinc-500 bg-zinc-900 border border-zinc-800 px-1.5 py-0.5 rounded-md">
-                      {proj.metrics.label}: {proj.metrics.value}
-                    </span>
-                  )}
-                </div>
-                <h4 className="font-sans font-bold text-white text-xs group-hover/item:text-emerald-400 transition">
-                  {proj.title}
-                </h4>
-                <p className="text-[10px] text-zinc-400 font-sans mt-1 line-clamp-2 leading-relaxed">
-                  {proj.description}
-                </p>
-              </div>
-
-              <div className="flex items-center gap-1.5 mt-2.5 flex-wrap">
-                {proj.tags.slice(0, 3).map((t, idx) => (
-                  <span
-                    key={idx}
-                    className="text-[8px] font-sans text-zinc-500 bg-zinc-900 border border-zinc-800 px-1.5 py-0.5 rounded"
-                  >
-                    {t}
-                  </span>
-                ))}
-                {proj.tags.length > 3 && (
-                  <span className="text-[8px] font-sans text-zinc-600 font-medium font-mono">
-                    +{proj.tags.length - 3}
-                  </span>
-                )}
-              </div>
-            </div>
+              {cat}
+            </button>
           ))}
         </div>
       </div>
 
-      {/* Footer statistics info */}
-      <div className="flex items-center justify-between border-t border-zinc-800/80 pt-3 mt-4 text-[10px] font-mono text-zinc-500 z-10">
-        <span className="flex items-center gap-1">
-          <Code className="w-3.5 h-3.5 text-zinc-400" /> Solid Software Design
-        </span>
-        <a
-          href="https://github.com/BrennisC"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center gap-1 text-emerald-400 hover:text-emerald-300 hover:underline transition"
-        >
-          Ver más en GitHub <ExternalLink className="w-2.5 h-2.5" />
-        </a>
-      </div>
-
-      {/* Interactive detail popup */}
-      {selectedProject && (
-        <div className="fixed inset-0 bg-black/65 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-zinc-950 border border-zinc-800 p-6 rounded-3xl max-w-md w-full relative">
-            <button
-              onClick={() => setSelectedProject(null)}
-              className="absolute top-4 right-4 text-zinc-500 hover:text-white text-sm"
-            >
-              ✕
-            </button>
-            <div className="flex items-center gap-2 mb-2">
-              <span className="text-[9px] font-mono uppercase bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded-full">
-                {selectedProject.category}
-              </span>
-              {selectedProject.metrics && (
-                <span className="text-[9px] font-mono text-zinc-400 bg-zinc-900 px-2 py-0.5 rounded-full">
-                  {selectedProject.metrics.label}:{" "}
-                  {selectedProject.metrics.value}
-                </span>
-              )}
-            </div>
-            <h3 className="font-sans font-bold text-white text-lg mb-2">
-              {selectedProject.title}
-            </h3>
-            <p className="text-zinc-400 font-sans text-xs leading-relaxed mb-4">
-              {selectedProject.description}
-            </p>
-
-            <div className="mb-4">
-              <h4 className="text-[10px] uppercase font-mono text-zinc-500 tracking-wider mb-1.5">
-                Tech Matrix
-              </h4>
-              <div className="flex flex-wrap gap-1.5">
-                {selectedProject.tags.map((t, idx) => (
-                  <span
-                    key={idx}
-                    className="text-[10px] font-sans text-zinc-300 bg-zinc-900 border border-zinc-800 px-2.5 py-1 rounded-lg"
-                  >
-                    {t}
-                  </span>
-                ))}
+      <div className="mt-5 grid grid-cols-1 gap-4">
+        {filteredProjects.map((project) => (
+          <article
+            key={project.id}
+            className="rounded-[1.25rem] border border-blue-100 bg-[#fffdf8] p-4 transition hover:border-blue-300 hover:shadow-md sm:p-5"
+          >
+            <div className="flex items-start justify-between gap-3">
+              <div>
+                <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-blue-700">
+                  {project.category}
+                </p>
+                <h4 className="mt-2 text-lg font-semibold text-blue-950">
+                  {project.title}
+                </h4>
               </div>
-            </div>
 
-            <div className="flex gap-2">
               <a
-                href={selectedProject.githubUrl}
+                href={project.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-1 flex items-center justify-center gap-1.5 py-2 px-4 rounded-xl text-xs font-semibold tracking-wide border border-zinc-800 hover:border-zinc-700 bg-zinc-900 text-white transition-all"
+                className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-blue-100 text-slate-500 transition hover:border-blue-300 hover:text-blue-800"
+                aria-label={`Ver repositorio de ${project.title}`}
               >
-                <Github className="w-3.5 h-3.5" /> Core Repo
+                <Github className="h-4 w-4" />
               </a>
-              <button
-                onClick={() => setSelectedProject(null)}
-                className="flex-shrink-0 bg-emerald-500 text-black hover:bg-emerald-400 active:scale-95 py-2 px-4 rounded-xl text-xs font-semibold transition-all"
-              >
-                Cerrar
-              </button>
             </div>
-          </div>
-        </div>
-      )}
+
+            <p className="mt-3 text-sm leading-6 text-slate-600">
+              {project.description}
+            </p>
+
+            <p className="mt-3 text-xs leading-6 text-slate-500">
+              {project.tags.join(" • ")}
+            </p>
+
+            {project.metrics && (
+              <div className="mt-4 flex items-center justify-between gap-3 border-t border-blue-100 pt-4 text-xs text-slate-500">
+                <span>
+                  {project.metrics.label}: <strong className="font-semibold text-blue-900">{project.metrics.value}</strong>
+                </span>
+
+                <a
+                  href={project.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 text-blue-800 transition hover:text-blue-950"
+                >
+                  Ver repositorio <ExternalLink className="h-3.5 w-3.5" />
+                </a>
+              </div>
+            )}
+          </article>
+        ))}
+      </div>
     </div>
   );
 }
